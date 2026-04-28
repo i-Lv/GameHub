@@ -38,6 +38,13 @@
 - systemd (服务管理)
 - Ubuntu 22.04 LTS
 
+### 🤖 AI 辅助开发
+- **WorkBuddy** - AI 编程助手（核心开发伙伴）
+- **Claude** - 代码审查与优化建议
+- **ChatGPT** - 功能设计与调试辅助
+
+> 本项目大量使用 AI 辅助开发，包括但不限于代码生成、架构设计、UI/UX 优化、Bug 修复等环节。AI 助手显著提升了开发效率，让开发者能够更专注于创意与体验的打磨。
+
 ## 🚀 快速开始
 
 ### 环境要求
@@ -179,7 +186,8 @@ gamehub/
 - 游戏素材与规则参考经典游戏设计
 - Web Audio API 用于音效合成
 - Three.js 用于 3D 游戏渲染
+- **WorkBuddy**、**Claude**、**ChatGPT** 等 AI 助手全程协助开发
 
 ---
 
-**Made with ❤️ for gamers everywhere**
+**Made with ❤️ and 🤖 for gamers everywhere**
