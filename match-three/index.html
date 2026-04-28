@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>消消乐 · 休闲益智</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ========== 顶部导航 ========== -->
+  <nav class="game-nav">
+    <a href="../" class="nav-back">← 返回平台</a>
+    <span class="nav-title">GameHub</span>
+  </nav>
+
+  <!-- ========== 大厅 ========== -->
+  <div class="lobby" id="lobby">
+    <div class="lobby-card">
+
+      <!-- 步骤1：模式选择 -->
+      <div class="lobby-step" id="stepMode">
+        <div class="lobby-icon">🎯</div>
+        <h1 class="lobby-title">消消乐</h1>
+        <p class="lobby-desc">选择游戏模式</p>
+        <div class="mode-cards">
+          <button class="mode-card" id="btnStart">
+            <span class="mode-emoji">🎮</span>
+            <span class="mode-name">开始游戏</span>
+            <span class="mode-desc">从第一关开始</span>
+          </button>
+          <button class="mode-card" id="btnSelectLevel">
+            <span class="mode-emoji">🗺️</span>
+            <span class="mode-name">选择关卡</span>
+            <span class="mode-desc">任选关卡挑战</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 步骤2：关卡选择 -->
+      <div class="lobby-step" id="stepLevels" style="display:none">
+        <button class="back-btn" id="btnBackFromLevels">← 返回</button>
+        <div class="lobby-icon">🗺️</div>
+        <h2 class="lobby-title">选择关卡</h2>
+        <p class="lobby-desc">选择你想挑战的关卡</p>
+        <div class="level-grid" id="levelGrid">
+          <!-- 动态渲染关卡列表 -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 游戏主界面 ========== -->
+  <div class="app" id="app" style="display:none">
+    <header class="header">
+      <h1 class="title">消消乐</h1>
+      <p class="subtitle" id="levelSubtitle">第 1 关</p>
+    </header>
+
+    <main class="main">
+      <section class="board-section">
+        <div class="game-info">
+          <div class="score-box">
+            <span class="score-label">分数：</span>
+            <span class="score-value" id="score">0</span>
+          </div>
+          <div class="target-box">
+            <span class="target-label">目标：</span>
+            <span class="target-value" id="targetScore">500</span>
+          </div>
+          <div class="time-box">
+            <span class="time-label">时间：</span>
+            <span class="time-value" id="time">60</span>
+          </div>
+        </div>
+        <div class="game-board" id="gameBoard"></div>
+      </section>
+
+      <aside class="panel">
+        <div class="status-indicator" id="statusIndicator">
+          <div class="status-icon">🎯</div>
+          <span id="statusText">准备开始</span>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-primary" id="btnRestart">重新开始</button>
+          <button class="btn btn-secondary" id="btnHint">提示</button>
+          <button class="btn btn-secondary" id="btnBackLobby">返回大厅</button>
+        </div>
+
+        <!-- 游戏说明 -->
+        <div class="game-info-panel">
+          <h3 class="info-title">游戏规则</h3>
+          <ul class="info-list">
+            <li>点击两个相邻的方块进行交换</li>
+            <li>形成3个或以上相同方块连线即可消除</li>
+            <li>消除方块可获得分数</li>
+            <li>在规定时间内达到目标分数即可过关</li>
+          </ul>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <!-- ========== 胜利弹窗 ========== -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-icon" id="modalIcon">🏆</div>
+      <h2 class="modal-title" id="modalTitle">游戏胜利！</h2>
+      <p class="modal-desc"  id="modalDesc">恭喜过关！</p>
+      <div class="modal-btn-group" id="modalBtnGroup">
+        <!-- 动态渲染：本地 / 联机 / 再战请求 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 页面入场遮罩 -->
+  <div class="page-enter-overlay" id="pageEnterOverlay"></div>
+
+  <script src="../audiofx.js"></script>
+  <script src="match-three.js"></script>
+  <script>
+    var _enterOverlay = document.getElementById('pageEnterOverlay');
+
+    // 页面加载时的淡入效果
+    function _fadeEnter() {
+      if (_enterOverlay) _enterOverlay.classList.add('fade-out');
+    }
+    window.addEventListener('load', function() {
+      setTimeout(_fadeEnter, 50);
+    });
+
+    // 从 bfcache/后退恢复时也确保遮罩消失
+    window.addEventListener('pageshow', function(e) {
+      if (e.persisted) {
+        _fadeEnter();
+      }
+    });
+  </script>
+</body>
+</html>

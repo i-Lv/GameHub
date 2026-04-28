@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>中国象棋 · 双人对战</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ========== Top Navigation ========== -->
+  <nav class="game-nav">
+    <a href="../" class="nav-back">&larr; 返回平台</a>
+    <span class="nav-title">GameHub</span>
+  </nav>
+
+  <!-- ========== Lobby ========== -->
+  <div class="lobby" id="lobby">
+    <div class="lobby-card">
+
+      <!-- Step 1: Mode Selection -->
+      <div class="lobby-step" id="stepMode">
+        <div class="lobby-icon">&#9822;</div>
+        <h1 class="lobby-title">中国象棋</h1>
+        <p class="lobby-desc">选择游戏模式</p>
+        <div class="mode-cards">
+          <button class="mode-card" id="btnLocal">
+            <span class="mode-emoji">&#127918;</span>
+            <span class="mode-name">本地对战</span>
+            <span class="mode-desc">同一设备双人轮流</span>
+          </button>
+          <button class="mode-card" id="btnOnline">
+            <span class="mode-emoji">&#127760;</span>
+            <span class="mode-name">联机对战</span>
+            <span class="mode-desc">与好友在线对弈</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 1.5: Nickname -->
+      <div class="lobby-step" id="stepName" style="display:none">
+        <button class="back-btn" id="btnBackFromName">&larr; 返回</button>
+        <div class="lobby-icon">&#9997;&#65039;</div>
+        <h2 class="lobby-title">输入昵称</h2>
+        <p class="lobby-desc">输入一个昵称，对局中显示给对手</p>
+        <div class="lobby-form">
+          <input
+            id="nameInput"
+            class="room-input"
+            type="text"
+            placeholder="请输入昵称（最多12字）"
+            maxlength="12"
+            autocomplete="off"
+          />
+          <button class="btn btn-primary lobby-btn" id="btnNameConfirm">确认</button>
+        </div>
+      </div>
+
+      <!-- Step 2: Online - Create/Join -->
+      <div class="lobby-step" id="stepOnline" style="display:none">
+        <button class="back-btn" id="btnBackMode">&larr; 返回</button>
+        <div class="lobby-icon">&#127760;</div>
+        <h2 class="lobby-title">联机对战</h2>
+        <div class="mode-cards">
+          <button class="mode-card" id="btnCreate">
+            <span class="mode-emoji">&#10133;</span>
+            <span class="mode-name">创建房间</span>
+            <span class="mode-desc">生成房间号邀请好友</span>
+          </button>
+          <button class="mode-card" id="btnJoin">
+            <span class="mode-emoji">&#128279;</span>
+            <span class="mode-name">加入房间</span>
+            <span class="mode-desc">输入房间号加入对局</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 3a: Room Created -->
+      <div class="lobby-step" id="stepCreate" style="display:none">
+        <button class="back-btn" id="btnBackOnline1">&larr; 返回</button>
+        <div class="lobby-icon">&#128994;</div>
+        <h2 class="lobby-title">房间已创建</h2>
+        <p class="lobby-desc">将房间号发送给好友即可开始</p>
+        <div class="room-code-box">
+          <span class="room-code" id="roomCode">&mdash;</span>
+          <button class="copy-btn" id="btnCopy">复制</button>
+        </div>
+        <p class="lobby-hint" id="createHint">等待对手加入&hellip;</p>
+      </div>
+
+      <!-- Step 3b: Join Room -->
+      <div class="lobby-step" id="stepJoin" style="display:none">
+        <button class="back-btn" id="btnBackOnline2">&larr; 返回</button>
+        <div class="lobby-icon">&#128279;</div>
+        <h2 class="lobby-title">加入房间</h2>
+        <p class="lobby-desc">输入好友分享的房间号</p>
+        <div class="lobby-form">
+          <input
+            id="roomInput"
+            class="room-input"
+            type="text"
+            placeholder="请输入房间号"
+            maxlength="20"
+            autocomplete="off"
+          />
+          <button class="btn btn-primary lobby-btn" id="btnJoinConfirm">加入</button>
+        </div>
+        <p class="lobby-hint" id="joinHint"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== Game UI ========== -->
+  <div class="app" id="app" style="display:none">
+    <header class="header">
+      <h1 class="title">中国象棋</h1>
+      <p class="subtitle" id="roomLabel"></p>
+    </header>
+
+    <main class="main">
+      <section class="board-section">
+        <div class="player-bar top-bar">
+          <span class="player-name" id="blackNameLabel">黑方</span>
+          <span class="player-score" id="blackScore">0</span>
+        </div>
+        <canvas id="board" width="630" height="700"></canvas>
+        <div class="player-bar bottom-bar">
+          <span class="player-name" id="redNameLabel">红方</span>
+          <span class="player-score" id="redScore">0</span>
+        </div>
+      </section>
+
+      <aside class="panel">
+
+        <!-- Turn Indicator -->
+        <div class="turn-indicator" id="turnIndicator">
+          <div class="color-dot" id="turnDot"></div>
+          <span id="turnText">红方走棋</span>
+        </div>
+
+        <!-- My Color (Online) -->
+        <div class="my-color-card" id="myColorCard" style="display:none">
+          <div class="color-dot" id="myColorDot"></div>
+          <div>
+            <div class="my-color-label">我的棋子</div>
+            <div class="my-color-name" id="myColorName">&mdash;</div>
+          </div>
+        </div>
+
+        <!-- Timer (Online) -->
+        <div class="timer-card" id="timerCard" style="display:none">
+          <svg class="timer-ring" viewBox="0 0 80 80">
+            <circle class="timer-track" cx="40" cy="40" r="34"/>
+            <circle class="timer-bar"   cx="40" cy="40" r="34" id="timerArc"/>
+          </svg>
+          <div class="timer-center">
+            <span class="timer-num" id="timerNum">30</span>
+            <span class="timer-unit">秒</span>
+          </div>
+        </div>
+
+        <!-- Round Info (Online) -->
+        <div class="round-info" id="roundInfo" style="display:none">
+          <span id="roundText">第 1 局</span>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="btn-group">
+          <button class="btn btn-primary" id="btnRestart">重新开始</button>
+          <button class="btn btn-secondary" id="btnUndo">悔棋</button>
+          <button class="btn btn-secondary" id="btnLeave" style="display:none">离开房间</button>
+          <button class="btn btn-secondary" id="btnBackLobby">返回大厅</button>
+        </div>
+
+        <!-- Move History -->
+        <div class="history-panel">
+          <h3 class="history-title">走棋记录</h3>
+          <ul class="history-list" id="historyList"></ul>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <!-- ========== Result Modal ========== -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-icon" id="modalIcon">&#127942;</div>
+      <h2 class="modal-title" id="modalTitle">红方获胜！</h2>
+      <p class="modal-desc"  id="modalDesc">将死！</p>
+      <div class="modal-btn-group" id="modalBtnGroup">
+      </div>
+    </div>
+  </div>
+
+  <!-- Page Enter Overlay -->
+  <div class="page-enter-overlay" id="pageEnterOverlay"></div>
+
+  <script src="../audiofx.js"></script>
+  <script src="chess.js"></script>
+  <script>
+    var _enterOverlay = document.getElementById('pageEnterOverlay');
+
+    function _fadeEnter() {
+      if (_enterOverlay) _enterOverlay.classList.add('fade-out');
+    }
+    window.addEventListener('load', function() {
+      setTimeout(_fadeEnter, 50);
+    });
+    window.addEventListener('pageshow', function(e) {
+      if (e.persisted) { _fadeEnter(); }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>飞行棋 · GameHub</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- 返回按钮 -->
+<button class="back-btn" id="backBtn" onclick="window.location.href='../'">&#8592; 返回平台</button>
+
+<!-- ==================== 菜单界面 ==================== -->
+<div id="menuScreen" class="screen active">
+  <div class="menu-box">
+    <div class="menu-title">
+      <span class="menu-plane">✈</span>
+      <h1>飞行棋</h1>
+    </div>
+    <p class="menu-sub">经典四色飞行棋 · 欢乐多人对战</p>
+
+    <!-- 模式选择 -->
+    <div class="mode-tabs">
+      <button class="mode-tab active" data-mode="local">🏠 本地对战</button>
+      <button class="mode-tab" data-mode="online">🌐 联机对战</button>
+    </div>
+
+    <!-- ===== 本地模式设置 ===== -->
+    <div id="localSetup" class="mode-setup">
+      <p class="mode-desc">四人本地对战，围坐在同一设备旁轮流操作。适合线下聚会！</p>
+      <button class="start-btn" id="localStartBtn">开始游戏</button>
+    </div>
+
+    <!-- ===== 联机模式设置 ===== -->
+    <div id="onlineSetup" class="mode-setup" style="display:none">
+      <div class="setup-section">
+        <div class="setup-label">联机人数</div>
+        <div class="player-count-btns">
+          <button class="count-btn online-count active" data-count="2">2人</button>
+          <button class="count-btn online-count" data-count="3">3人</button>
+          <button class="count-btn online-count" data-count="4">4人</button>
+        </div>
+      </div>
+      <p class="mode-desc" id="onlineDesc">不足4人将由电脑机器人补位，保证游戏体验！</p>
+      <div class="setup-section">
+        <div class="setup-label">你的昵称</div>
+        <input class="name-input" id="nicknameInput" type="text" maxlength="8" placeholder="输入昵称（2-8字）" />
+      </div>
+      <div class="online-actions">
+        <button class="start-btn" id="createRoomBtn">创建房间</button>
+        <button class="start-btn secondary" id="joinRoomBtn">加入房间</button>
+      </div>
+    </div>
+
+    <!-- ===== 加入房间弹窗 ===== -->
+    <div id="joinDialog" class="join-dialog" style="display:none">
+      <div class="setup-label">输入房间号</div>
+      <input class="name-input" id="roomInput" type="text" maxlength="10" placeholder="请输入房间号" />
+      <div class="join-actions">
+        <button class="start-btn small" id="confirmJoinBtn">确认加入</button>
+        <button class="start-btn small secondary" id="cancelJoinBtn">取消</button>
+      </div>
+    </div>
+
+    <div class="menu-rules">
+      <strong>玩法说明：</strong>掷出6起飞 · 击退对方棋子回家 · 安全格★不被击退 · 4颗棋子全到终点获胜
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 等待房间界面 ==================== -->
+<div id="lobbyScreen" class="screen">
+  <div class="menu-box lobby-box">
+    <div class="lobby-title">等待玩家加入...</div>
+    <div class="lobby-room-id">
+      <span>房间号：</span><strong id="lobbyRoomId">---</strong>
+      <button class="copy-btn" id="copyRoomBtn" title="复制房间号">📋</button>
+    </div>
+    <div class="lobby-players" id="lobbyPlayers"></div>
+    <div class="lobby-hint" id="lobbyHint">等待其他玩家加入房间...</div>
+    <button class="start-btn" id="lobbyStartBtn" style="display:none">所有人已就绪，开始游戏</button>
+    <button class="start-btn secondary" id="lobbyLeaveBtn">离开房间</button>
+  </div>
+</div>
+
+<!-- ==================== 游戏界面 ==================== -->
+<div id="gameScreen" class="screen">
+  <div class="game-layout">
+    <!-- 棋盘区 -->
+    <div class="board-wrap">
+      <canvas id="gameCanvas"></canvas>
+    </div>
+
+    <!-- 右侧控制区 -->
+    <div class="game-panel">
+      <div class="turn-info" id="turnInfo">
+        <div class="turn-player" id="turnPlayer">红色的回合</div>
+        <div class="turn-hint" id="turnHint">点击骰子摇骰</div>
+      </div>
+
+      <!-- 骰子 -->
+      <div class="dice-area">
+        <div class="dice" id="dice">
+          <div class="dice-face" id="diceFace">
+            <div class="dice-dot"></div><div class="dice-dot"></div><div class="dice-dot"></div>
+            <div class="dice-dot"></div><div class="dice-dot"></div><div class="dice-dot"></div>
+            <div class="dice-dot"></div><div class="dice-dot"></div><div class="dice-dot"></div>
+          </div>
+        </div>
+        <button class="roll-btn" id="rollBtn">🎲 摇骰子</button>
+      </div>
+
+      <!-- 可移动棋子提示 -->
+      <div class="movable-hint" id="movableHint" style="display:none">
+        点击棋子移动
+      </div>
+
+      <!-- 棋子状态 -->
+      <div class="pieces-status" id="piecesStatus"></div>
+
+      <!-- 操作按钮 -->
+      <div class="game-btns">
+        <button class="game-btn" id="menuBtn">🏠 返回菜单</button>
+        <button class="game-btn" id="restartBtn">🔄 重新开始</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 胜利弹窗 ==================== -->
+<div id="winOverlay" class="overlay" style="display:none">
+  <div class="win-box">
+    <div class="win-emoji">🏆</div>
+    <div class="win-title" id="winTitle">红色获胜！</div>
+    <div class="win-sub">所有棋子安全抵达终点</div>
+    <div class="win-btns">
+      <button class="win-btn primary" id="winRestart">再来一局</button>
+      <button class="win-btn" id="winMenu">返回菜单</button>
+    </div>
+  </div>
+</div>
+
+<!-- 过场提示 -->
+<div id="toastEl" class="toast" style="display:none"></div>
+
+<script src="ludo.js"></script>
+</body>
+</html>

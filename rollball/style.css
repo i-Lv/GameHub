@@ -1,0 +1,642 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #0a0a1a;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+canvas { display: block; }
+
+/* 暂停菜单 */
+#pauseOverlay {
+  display: none;
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 250;
+  justify-content: center; align-items: center;
+  backdrop-filter: blur(8px);
+  animation: overlayIn 0.25s ease-out;
+}
+#pauseBox {
+  text-align: center;
+  padding: 48px 60px;
+  background: linear-gradient(135deg, rgba(20, 10, 40, 0.95), rgba(10, 5, 25, 0.98));
+  border: 1px solid rgba(100, 180, 255, 0.3);
+  border-radius: 20px;
+  box-shadow: 0 0 60px rgba(100, 180, 255, 0.1);
+  animation: boxIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+#pauseBox h1 {
+  font-size: 48px;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 0 20px rgba(100, 180, 255, 0.5);
+  margin-bottom: 10px;
+  letter-spacing: 6px;
+}
+#pauseBox p {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 36px;
+}
+#pauseBtns {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+#pauseResumeBtn {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #64b5f6, #e040fb);
+  border: none;
+  padding: 14px 56px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 20px rgba(100, 181, 246, 0.3);
+  letter-spacing: 2px;
+}
+#pauseResumeBtn:hover {
+  transform: scale(1.06);
+  box-shadow: 0 6px 30px rgba(100, 181, 246, 0.5);
+}
+#pauseResumeBtn:active { transform: scale(0.97); }
+#pauseMenuBtn, #pauseBackBtn {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(180, 210, 255, 0.5);
+  background: transparent;
+  border: 1px solid rgba(100, 180, 255, 0.15);
+  padding: 12px 40px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, transform 0.2s;
+  letter-spacing: 2px;
+}
+#pauseMenuBtn:hover, #pauseBackBtn:hover {
+  color: rgba(180, 210, 255, 0.9);
+  border-color: rgba(100, 180, 255, 0.4);
+  transform: scale(1.04);
+}
+
+/* GameOver 弹窗 */
+#gameOverOverlay {
+  display: none;
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 100;
+  justify-content: center; align-items: center;
+  backdrop-filter: blur(8px);
+  animation: overlayIn 0.3s ease-out;
+}
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+#gameOverBox {
+  text-align: center;
+  padding: 50px 60px;
+  background: linear-gradient(135deg, rgba(20, 10, 40, 0.95), rgba(10, 5, 25, 0.98));
+  border: 1px solid rgba(255, 104, 253, 0.3);
+  border-radius: 20px;
+  box-shadow: 0 0 60px rgba(255, 104, 253, 0.15), 0 0 120px rgba(21, 190, 252, 0.08);
+  animation: boxIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes boxIn {
+  from { transform: scale(0.6); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+#gameOverBox h1 {
+  font-size: 52px;
+  font-weight: 800;
+  color: #ff4060;
+  text-shadow: 0 0 20px rgba(255, 64, 96, 0.5), 0 0 40px rgba(255, 64, 96, 0.2);
+  margin-bottom: 12px;
+  letter-spacing: 4px;
+}
+#gameOverBox p {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 36px;
+}
+#gameOverBtns {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+#continueBtn {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #ff68fd, #15befc);
+  border: none;
+  padding: 14px 48px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 20px rgba(255, 104, 253, 0.3);
+  letter-spacing: 2px;
+}
+#continueBtn:hover {
+  transform: scale(1.06);
+  box-shadow: 0 6px 30px rgba(255, 104, 253, 0.5);
+}
+#continueBtn:active { transform: scale(0.97); }
+#backBtn {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(180, 210, 255, 0.5);
+  background: transparent;
+  border: 1px solid rgba(100, 180, 255, 0.15);
+  padding: 14px 28px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, transform 0.2s;
+  letter-spacing: 2px;
+}
+#backBtn:hover {
+  color: rgba(180, 210, 255, 0.9);
+  border-color: rgba(100, 180, 255, 0.4);
+  transform: scale(1.04);
+}
+#backBtn:active { transform: scale(0.97); }
+
+/* 胜利弹窗 */
+#victoryOverlay {
+  display: none;
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 200;
+  justify-content: center; align-items: center;
+  backdrop-filter: blur(8px);
+  animation: overlayIn 0.4s ease-out;
+}
+#victoryBox {
+  text-align: center;
+  padding: 40px 56px 36px;
+  background: linear-gradient(135deg, rgba(10, 5, 30, 0.95), rgba(5, 2, 15, 0.98));
+  border: 1px solid rgba(100, 180, 255, 0.4);
+  border-radius: 24px;
+  animation: victoryBoxIn 0.4s ease-out;
+  min-width: 340px;
+}
+@keyframes victoryBoxIn {
+  from { transform: scale(0.8) translateY(30px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+#victoryStars {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+#victoryStars .star {
+  font-size: 42px;
+  color: rgba(255, 255, 255, 0.12);
+  transition: color 0.5s ease, text-shadow 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: scale(0.6);
+}
+#victoryStars .star.lit {
+  color: #ffd740;
+  text-shadow: 0 0 20px rgba(255, 215, 64, 0.6), 0 0 40px rgba(255, 215, 64, 0.3);
+  transform: scale(1);
+}
+#victoryStars .star.pop {
+  animation: starPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes starPop {
+  0%   { transform: scale(0.3); opacity: 0.3; }
+  50%  { transform: scale(1.3); }
+  100% { transform: scale(1); opacity: 1; }
+}
+#victoryBox h1 {
+  font-size: 48px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #64b5f6, #e040fb, #ffd740);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 16px;
+  letter-spacing: 4px;
+}
+#victoryBox p {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 8px;
+}
+#victoryStats {
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(180, 210, 255, 0.5);
+  margin-bottom: 28px;
+  letter-spacing: 1px;
+  line-height: 1.8;
+}
+#victoryBtns {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+#victoryNextBtn {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #64b5f6, #e040fb);
+  border: none;
+  padding: 14px 48px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 20px rgba(100, 181, 246, 0.3);
+  letter-spacing: 2px;
+}
+#victoryNextBtn:hover {
+  transform: scale(1.06);
+  box-shadow: 0 6px 30px rgba(100, 181, 246, 0.5);
+}
+#victoryNextBtn:active { transform: scale(0.97); }
+#victoryBackBtn {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(180, 210, 255, 0.5);
+  background: transparent;
+  border: 1px solid rgba(100, 180, 255, 0.15);
+  padding: 12px 28px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, transform 0.2s;
+  letter-spacing: 1px;
+}
+#victoryBackBtn:hover {
+  color: rgba(180, 210, 255, 0.9);
+  border-color: rgba(100, 180, 255, 0.4);
+  transform: scale(1.04);
+}
+#victoryNextBtn.hidden { display: none; }
+
+/* 距离显示 */
+#distanceUI {
+  position: fixed;
+  top: 30px;
+  right: 40px;
+  text-align: right;
+  z-index: 50;
+  pointer-events: none;
+}
+#distCurrent {
+  font-size: 52px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 2px;
+  line-height: 1;
+  text-shadow:
+    0 0 15px rgba(100, 180, 255, 0.6),
+    0 0 30px rgba(100, 180, 255, 0.3),
+    0 0 60px rgba(100, 180, 255, 0.15);
+}
+#distCurrent .unit {
+  font-size: 24px;
+  font-weight: 600;
+  color: rgba(180, 210, 255, 0.7);
+  margin-left: 4px;
+}
+#distTarget {
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(180, 210, 255, 0.5);
+  margin-top: 8px;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px rgba(100, 180, 255, 0.25);
+  transition: color 0.4s, text-shadow 0.4s;
+}
+#distTarget.revealed {
+  color: rgba(224, 64, 251, 0.8);
+  text-shadow: 0 0 12px rgba(224, 64, 251, 0.4), 0 0 24px rgba(224, 64, 251, 0.15);
+}
+#levelName {
+  font-size: 20px;
+  font-weight: 700;
+  color: rgba(180, 210, 255, 0.6);
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+  text-shadow: 0 0 10px rgba(100, 180, 255, 0.3);
+}
+
+/* 关卡名称闪现 */
+#levelAnnounce {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0;
+}
+#levelAnnounce.show {
+  animation: levelFlash 2.5s ease-out forwards;
+}
+@keyframes levelFlash {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
+  15%  { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+  70%  { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+}
+#levelAnnounce .level-num {
+  font-size: 22px;
+  font-weight: 600;
+  color: rgba(180, 210, 255, 0.8);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+}
+#levelAnnounce .level-title {
+  font-size: 56px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #64b5f6, #e040fb, #ffd740);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 6px;
+  margin-top: 8px;
+}
+#levelAnnounce .level-sub {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 12px;
+  letter-spacing: 2px;
+}
+
+/* 关卡选择界面 */
+#levelSelectOverlay {
+  display: none;
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: radial-gradient(ellipse at center, rgba(5, 2, 20, 0.92) 0%, rgba(2, 1, 10, 0.98) 100%);
+  z-index: 300;
+  justify-content: center; align-items: center;
+  backdrop-filter: blur(12px);
+  animation: overlayIn 0.4s ease-out;
+}
+#levelSelectContainer {
+  text-align: center;
+  width: 90%;
+  max-width: 750px;
+  animation: containerIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes containerIn {
+  from { transform: scale(0.85) translateY(40px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+#levelSelectTitle {
+  font-size: 42px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #64b5f6, #e040fb, #ffd740);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 6px;
+  margin-bottom: 8px;
+}
+#levelSelectSub {
+  font-size: 14px;
+  color: rgba(180, 210, 255, 0.4);
+  letter-spacing: 3px;
+  margin-bottom: 40px;
+}
+#levelCards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 36px;
+}
+.level-card {
+  width: 125px;
+  padding: 24px 12px 20px;
+  border-radius: 16px;
+  background: linear-gradient(145deg, rgba(20, 12, 45, 0.9), rgba(8, 4, 22, 0.95));
+  border: 1px solid rgba(100, 180, 255, 0.15);
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.25s ease,
+              border-color 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+.level-card::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle at 30% 30%, rgba(100, 180, 255, 0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+.level-card:hover {
+  transform: translateY(-6px) scale(1.04);
+  box-shadow: 0 8px 32px rgba(100, 180, 255, 0.2), 0 0 60px rgba(100, 180, 255, 0.06);
+  border-color: rgba(100, 180, 255, 0.4);
+}
+.level-card:active { transform: translateY(-2px) scale(0.98); }
+.level-card .card-num {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(100, 180, 255, 0.5);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.level-card .card-name {
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 2px;
+  margin-bottom: 6px;
+  text-shadow: 0 0 12px rgba(100, 180, 255, 0.3);
+}
+.level-card .card-name-en {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(180, 210, 255, 0.35);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.level-card.locked {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.level-card.locked::after {
+  content: '\f023';
+  font-family: 'Font Awesome 6 Free', sans-serif;
+  font-size: 18px;
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  color: rgba(255, 255, 255, 0.2);
+}
+.level-card.active {
+  border-color: rgba(100, 180, 255, 0.6);
+  box-shadow: 0 0 20px rgba(100, 180, 255, 0.15);
+}
+.level-card.active .card-name {
+  background: linear-gradient(135deg, #64b5f6, #e040fb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+#backToMenuBtn {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(180, 210, 255, 0.5);
+  background: transparent;
+  border: 1px solid rgba(100, 180, 255, 0.15);
+  padding: 10px 32px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, transform 0.2s;
+  letter-spacing: 2px;
+}
+#backToMenuBtn:hover {
+  color: rgba(180, 210, 255, 0.9);
+  border-color: rgba(100, 180, 255, 0.4);
+  transform: scale(1.04);
+}
+
+/* 游戏内返回菜单按钮 */
+#inGameMenuBtn {
+  display: none;
+  position: fixed;
+  top: 30px;
+  left: 40px;
+  z-index: 50;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(180, 210, 255, 0.5);
+  background: rgba(10, 5, 30, 0.6);
+  border: 1px solid rgba(100, 180, 255, 0.15);
+  padding: 8px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+  letter-spacing: 2px;
+  backdrop-filter: blur(6px);
+}
+#inGameMenuBtn:hover {
+  color: rgba(180, 210, 255, 0.9);
+  border-color: rgba(100, 180, 255, 0.4);
+}
+
+/* 连击鼓励 */
+#comboUI {
+  position: fixed;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+#comboUI.visible { opacity: 1; }
+#comboWord {
+  font-size: 42px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  transition: transform 0.15s ease-out, text-shadow 0.3s ease-out;
+  transform: scale(1);
+}
+#comboWord.pop {
+  animation: comboPop 0.3s ease-out;
+}
+@keyframes comboPop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+#comboCount {
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  margin-top: 4px;
+  letter-spacing: 2px;
+  transition: transform 0.15s ease-out;
+}
+#comboCount.bump {
+  animation: comboBump 0.25s ease-out;
+}
+@keyframes comboBump {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* ===== 手机适配 ===== */
+@media (max-width: 600px) {
+  /* 暂停菜单 */
+  #pauseBox { padding: 32px 24px; }
+  #pauseBox h1 { font-size: 32px; letter-spacing: 4px; }
+  #pauseBox p { font-size: 13px; margin-bottom: 24px; }
+  #pauseResumeBtn { font-size: 15px; padding: 12px 40px; }
+  #pauseMenuBtn, #pauseBackBtn { font-size: 12px; padding: 10px 28px; }
+
+  /* GameOver */
+  #gameOverBox { padding: 32px 24px; }
+  #gameOverBox h1 { font-size: 36px; letter-spacing: 3px; }
+  #gameOverBox p { font-size: 13px; margin-bottom: 24px; }
+  #gameOverBtns { flex-direction: column; gap: 10px; align-items: center; }
+  #continueBtn { font-size: 15px; padding: 12px 40px; }
+  #backBtn { font-size: 12px; padding: 10px 28px; }
+
+  /* 胜利弹窗 */
+  #victoryBox { padding: 28px 20px; min-width: 0; width: 88%; }
+  #victoryBox h1 { font-size: 32px; letter-spacing: 3px; }
+  #victoryBox p { font-size: 14px; }
+  #victoryStats { font-size: 13px; margin-bottom: 20px; }
+  #victoryBtns { flex-direction: column; gap: 10px; align-items: center; }
+  #victoryNextBtn { font-size: 15px; padding: 12px 36px; }
+  #victoryBackBtn { font-size: 12px; padding: 10px 24px; }
+  #victoryStars .star { font-size: 32px; }
+
+  /* 距离UI */
+  #distanceUI { top: 16px; right: 16px; }
+  #distCurrent { font-size: 36px; }
+  #distCurrent .unit { font-size: 16px; }
+  #distTarget { font-size: 13px; }
+  #levelName { font-size: 15px; }
+
+  /* 关卡名称闪现 */
+  #levelAnnounce .level-num { font-size: 16px; }
+  #levelAnnounce .level-title { font-size: 36px; letter-spacing: 3px; }
+  #levelAnnounce .level-sub { font-size: 13px; }
+
+  /* 关卡选择 */
+  #levelSelectTitle { font-size: 28px; letter-spacing: 3px; }
+  #levelSelectSub { font-size: 12px; }
+  #levelCards { gap: 10px; margin-bottom: 24px; }
+  .level-card { width: 90px; padding: 16px 8px 14px; border-radius: 12px; }
+  .level-card .card-num { font-size: 10px; margin-bottom: 6px; }
+  .level-card .card-name { font-size: 16px; margin-bottom: 4px; }
+  .level-card .card-name-en { font-size: 9px; }
+
+  /* 游戏内按钮 */
+  #inGameMenuBtn { top: 16px; left: 16px; font-size: 11px; padding: 6px 14px; }
+
+  /* 连击 */
+  #comboUI { top: 44px; }
+  #comboWord { font-size: 28px; }
+  #comboCount { font-size: 20px; }
+}
+
+@media (max-width: 380px) {
+  #levelCards { gap: 8px; }
+  .level-card { width: 78px; padding: 12px 6px 10px; }
+  .level-card .card-name { font-size: 14px; }
+}

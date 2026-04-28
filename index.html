@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GameHub · 在线游戏平台</title>
+  <link rel="stylesheet" href="platform.css" />
+</head>
+<body>
+
+  <div class="platform">
+    <!-- Header -->
+    <header class="platform-header">
+      <div class="logo">
+        <span class="logo-icon">🎮</span>
+        <h1 class="logo-text">GameHub</h1>
+      </div>
+    </header>
+
+    <!-- Main Layout -->
+    <main class="main-layout">
+      
+      <!-- Left Sidebar: Game List -->
+      <aside class="game-sidebar">
+        <div class="sidebar-header">
+          <span class="sidebar-icon">⊞</span>
+          <span>游戏列表</span>
+        </div>
+        
+        <div class="game-list">
+          <!-- Gomoku -->
+          <a href="gomoku/" class="game-list-item active" data-game="gomoku">
+            <div class="list-item-icon">
+              <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+                <line x1="0" y1="7" x2="26" y2="7" stroke="#3a3a5a" stroke-width=".5"/>
+                <line x1="0" y1="13" x2="26" y2="13" stroke="#3a3a5a" stroke-width=".5"/>
+                <line x1="0" y1="19" x2="26" y2="19" stroke="#3a3a5a" stroke-width=".5"/>
+                <line x1="7" y1="0" x2="7" y2="26" stroke="#3a3a5a" stroke-width=".5"/>
+                <line x1="13" y1="0" x2="13" y2="26" stroke="#3a3a5a" stroke-width=".5"/>
+                <line x1="19" y1="0" x2="19" y2="26" stroke="#3a3a5a" stroke-width=".5"/>
+                <circle cx="7" cy="7" r="2.8" fill="#1a1a2e" stroke="#555" stroke-width=".6"/>
+                <circle cx="13" cy="7" r="2.8" fill="#1a1a2e" stroke="#555" stroke-width=".6"/>
+                <circle cx="19" cy="7" r="2.8" fill="#1a1a2e" stroke="#555" stroke-width=".6"/>
+                <circle cx="7" cy="13" r="2.8" fill="#1a1a2e" stroke="#555" stroke-width=".6"/>
+                <circle cx="7" cy="7" r="1" fill="#444" opacity=".4"/>
+              </svg>
+            </div>
+            <div class="list-item-info">
+              <h3 class="list-item-name">五子棋</h3>
+              <p class="list-item-desc">双人对战 · 联机</p>
+            </div>
+          </a>
+
+          <!-- Chinese Chess -->
+          <a href="chinese-chess/" class="game-list-item" data-game="chess">
+            <div class="list-item-icon">
+              <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+                <circle cx="13" cy="13" r="10" fill="#c0392b" stroke="#8b1a1a" stroke-width="1"/>
+                <circle cx="13" cy="13" r="8" fill="none" stroke="#f5deb3" stroke-width=".6"/>
+                <text x="13" y="17.5" text-anchor="middle" fill="#f5deb3" font-size="12" font-weight="bold" font-family="serif">象</text>
+              </svg>
+            </div>
+            <div class="list-item-info">
+              <h3 class="list-item-name">中国象棋</h3>
+              <p class="list-item-desc">双人对战 · 联机</p>
+            </div>
+          </a>
+
+          <!-- Go (Weiqi) -->
+          <a href="go/" class="game-list-item" data-game="go">
+            <div class="list-item-icon">⚫</div>
+            <div class="list-item-info">
+              <h3 class="list-item-name">围棋</h3>
+              <p class="list-item-desc">双人对战 · 联机</p>
+            </div>
+          </a>
+
+          <!-- Tic Tac Toe -->
+          <a href="tictactoe/" class="game-list-item" data-game="tictactoe">
+            <div class="list-item-icon">
+              <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+                <line x1="0" y1="8.67" x2="26" y2="8.67" stroke="#3a3a5a" stroke-width=".5"/>
+                <line x1="0" y1="17.33" x2="26" y2="17.33" stroke="#3a3a5a" stroke-width=".5"/>
+                <line x1="8.67" y1="0" x2="8.67" y2="26" stroke="#3a3a5a" stroke-width=".5"/>
+                <line x1="17.33" y1="0" x2="17.33" y2="26" stroke="#3a3a5a" stroke-width=".5"/>
+                <text x="4.33" y="11" text-anchor="middle" fill="#e94560" font-size="8" font-weight="bold">X</text>
+                <text x="13" y="11" text-anchor="middle" fill="#f0c040" font-size="8" font-weight="bold">O</text>
+                <text x="21.67" y="11" text-anchor="middle" fill="#e94560" font-size="8" font-weight="bold">X</text>
+              </svg>
+            </div>
+            <div class="list-item-info">
+              <h3 class="list-item-name">井字棋</h3>
+              <p class="list-item-desc">双人对战 · 联机</p>
+            </div>
+          </a>
+
+          <!-- Match Three -->
+          <a href="match-three/" class="game-list-item" data-game="match-three">
+            <div class="list-item-icon">
+              <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+                <circle cx="8.67" cy="8.67" r="3" fill="#e94560"/>
+                <circle cx="17.33" cy="8.67" r="3" fill="#0f3460"/>
+                <circle cx="8.67" cy="17.33" r="3" fill="#16213e"/>
+                <circle cx="17.33" cy="17.33" r="3" fill="#f0c040"/>
+                <circle cx="13" cy="13" r="3" fill="#c73652"/>
+              </svg>
+            </div>
+            <div class="list-item-info">
+              <h3 class="list-item-name">消消乐</h3>
+              <p class="list-item-desc">休闲益智 · 联机</p>
+            </div>
+          </a>
+
+          <!-- RollBall -->
+          <a href="rollball/" class="game-list-item" data-game="rollball">
+            <div class="list-item-icon">
+              <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+                <circle cx="13" cy="13" r="8" fill="url(#rbGrad)" stroke="#64b5f6" stroke-width="1"/>
+                <defs><linearGradient id="rbGrad" x1="5" y1="5" x2="21" y2="21"><stop offset="0%" stop-color="#ff68fd"/><stop offset="100%" stop-color="#15befc"/></linearGradient></defs>
+                <ellipse cx="13" cy="10" rx="4" ry="2" fill="rgba(255,255,255,0.3)" transform="rotate(-20 13 10)"/>
+              </svg>
+            </div>
+            <div class="list-item-info">
+              <h3 class="list-item-name">弹跳球</h3>
+              <p class="list-item-desc">3D跑酷 · 单人</p>
+            </div>
+          </a>
+
+          <!-- Baba Is You -->
+          <a href="baba-is-you/" class="game-list-item" data-game="baba-is-you">
+            <div class="list-item-icon">
+              <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+                <rect x="3" y="10" width="7" height="7" rx="1.5" fill="#7c5cff" opacity="0.8"/>
+                <rect x="12" y="10" width="5" height="7" rx="1" fill="#4a3a8a"/>
+                <rect x="19" y="10" width="4" height="7" rx="1" fill="#c4a0ff"/>
+                <line x1="6.5" y1="10" x2="6.5" y2="7" stroke="#7c5cff" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="list-item-info">
+              <h3 class="list-item-name">规则即力量</h3>
+              <p class="list-item-desc">解谜推箱 · 单人</p>
+            </div>
+          </a>
+
+          <!-- Coming Soon -->
+          <div class="game-list-item placeholder">
+            <div class="list-item-icon">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                <circle cx="11" cy="11" r="9" stroke="#555" stroke-width="1.5" stroke-dasharray="3 2"/>
+                <text x="11" y="15" text-anchor="middle" fill="#555" font-size="11" font-weight="bold">?</text>
+              </svg>
+            </div>
+            <div class="list-item-info">
+              <h3 class="list-item-name">敬请期待</h3>
+              <p class="list-item-desc">更多游戏开发中</p>
+            </div>
+          </div>
+
+          <!-- Ludo - Developing -->
+          <div class="game-list-item developing" data-game="ludo">
+            <div class="list-item-icon">
+              <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+                <rect x="1" y="1" width="11" height="11" rx="1.5" fill="#e94560" opacity="0.7"/>
+                <rect x="14" y="1" width="11" height="11" rx="1.5" fill="#2ecc71" opacity="0.7"/>
+                <rect x="1" y="14" width="11" height="11" rx="1.5" fill="#f0c040" opacity="0.7"/>
+                <rect x="14" y="14" width="11" height="11" rx="1.5" fill="#3498db" opacity="0.7"/>
+                <text x="6.5" y="9.5" text-anchor="middle" fill="#fff" font-size="7">✈</text>
+                <text x="19.5" y="9.5" text-anchor="middle" fill="#fff" font-size="7">✈</text>
+                <text x="6.5" y="22.5" text-anchor="middle" fill="#fff" font-size="7">✈</text>
+                <text x="19.5" y="22.5" text-anchor="middle" fill="#fff" font-size="7">✈</text>
+              </svg>
+            </div>
+            <div class="list-item-info">
+              <h3 class="list-item-name">飞行棋</h3>
+              <p class="list-item-desc developing-tag">正在开发</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Right: Game Detail -->
+      <section class="game-detail">
+        <!-- Gomoku Detail -->
+        <div class="detail-card" id="detail-gomoku">
+          <div class="detail-preview">
+            <div class="preview-placeholder">
+              <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                <line x1="0" y1="20" x2="80" y2="20" stroke="#3a3a5a" stroke-width="1" opacity=".5"/>
+                <line x1="0" y1="40" x2="80" y2="40" stroke="#3a3a5a" stroke-width="1" opacity=".5"/>
+                <line x1="0" y1="60" x2="80" y2="60" stroke="#3a3a5a" stroke-width="1" opacity=".5"/>
+                <line x1="20" y1="0" x2="20" y2="80" stroke="#3a3a5a" stroke-width="1" opacity=".5"/>
+                <line x1="40" y1="0" x2="40" y2="80" stroke="#3a3a5a" stroke-width="1" opacity=".5"/>
+                <line x1="60" y1="0" x2="60" y2="80" stroke="#3a3a5a" stroke-width="1" opacity=".5"/>
+                <circle cx="20" cy="20" r="8" fill="#1a1a2e" stroke="#666" stroke-width="1"/>
+                <circle cx="40" cy="20" r="8" fill="#1a1a2e" stroke="#666" stroke-width="1"/>
+                <circle cx="60" cy="20" r="8" fill="#1a1a2e" stroke="#666" stroke-width="1"/>
+                <circle cx="20" cy="40" r="8" fill="#1a1a2e" stroke="#666" stroke-width="1"/>
+                <circle cx="20" cy="20" r="3" fill="#444" opacity=".3"/>
+              </svg>
+              <p>五子棋对战</p>
+            </div>
+          </div>
+          <div class="detail-info">
+            <h2 class="detail-title">五子棋</h2>
+            <p class="detail-desc">经典黑白对弈，支持双人在线对战。率先连成五子者获胜，简单上手，策略无穷。</p>
+            <div class="detail-tags">
+              <span class="tag">策略</span>
+              <span class="tag">双人对战</span>
+              <span class="tag">联机</span>
+              <span class="tag">休闲</span>
+            </div>
+            <div class="detail-actions">
+              <a href="gomoku/" class="btn-launch game-link">启动游戏</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chess Detail (hidden by default) -->
+        <div class="detail-card" id="detail-chess" style="display:none">
+          <div class="detail-preview">
+            <div class="preview-placeholder">
+              <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                <circle cx="40" cy="40" r="32" fill="#c0392b" stroke="#8b1a1a" stroke-width="1.5"/>
+                <circle cx="40" cy="40" r="26" fill="none" stroke="#f5deb3" stroke-width="1"/>
+                <text x="40" y="50" text-anchor="middle" fill="#f5deb3" font-size="30" font-weight="bold" font-family="serif">象</text>
+              </svg>
+              <p>中国象棋</p>
+            </div>
+          </div>
+          <div class="detail-info">
+            <h2 class="detail-title">中国象棋</h2>
+            <p class="detail-desc">楚河汉界，排兵布阵。完整走棋规则验证，支持双人本地对战与在线联机对弈。</p>
+            <div class="detail-tags">
+              <span class="tag">策略</span>
+              <span class="tag">双人对战</span>
+              <span class="tag">联机</span>
+              <span class="tag">经典</span>
+            </div>
+            <div class="detail-actions">
+              <a href="chinese-chess/" class="btn-launch game-link">启动游戏</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Go Detail (hidden by default) -->
+        <div class="detail-card" id="detail-go" style="display:none">
+          <div class="detail-preview">
+            <div class="preview-placeholder">
+              <span>⚫</span>
+              <p>围棋</p>
+            </div>
+          </div>
+          <div class="detail-info">
+            <h2 class="detail-title">围棋</h2>
+            <p class="detail-desc">黑白博弈，方寸之间见天地。19路标准棋盘，中国规则数子法，支持打劫、禁入、虚手、认输与数目。</p>
+            <div class="detail-tags">
+              <span class="tag">策略</span>
+              <span class="tag">双人对战</span>
+              <span class="tag">联机</span>
+              <span class="tag">经典</span>
+            </div>
+            <div class="detail-actions">
+              <a href="go/" class="btn-launch game-link">启动游戏</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ludo Detail (hidden by default) -->
+        <div class="detail-card" id="detail-ludo" style="display:none">
+          <div class="detail-preview">
+            <div class="preview-placeholder">
+              <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                <rect x="2" y="2" width="35" height="35" rx="4" fill="#e94560" opacity="0.7"/>
+                <rect x="43" y="2" width="35" height="35" rx="4" fill="#2ecc71" opacity="0.7"/>
+                <rect x="2" y="43" width="35" height="35" rx="4" fill="#f0c040" opacity="0.7"/>
+                <rect x="43" y="43" width="35" height="35" rx="4" fill="#3498db" opacity="0.7"/>
+                <text x="19.5" y="28" text-anchor="middle" fill="#fff" font-size="18">✈</text>
+                <text x="60.5" y="28" text-anchor="middle" fill="#fff" font-size="18">✈</text>
+                <text x="19.5" y="68" text-anchor="middle" fill="#fff" font-size="18">✈</text>
+                <text x="60.5" y="68" text-anchor="middle" fill="#fff" font-size="18">✈</text>
+              </svg>
+              <p>飞行棋</p>
+            </div>
+          </div>
+          <div class="detail-info">
+            <h2 class="detail-title">飞行棋 <span class="dev-badge">正在开发</span></h2>
+            <p class="detail-desc">经典四色飞行棋，支持4人本地对战与2-4人联机（不足4人AI补位）。掷出6起飞，击退对手回家，安全格庇护，4颗棋子全到终点获胜！</p>
+            <div class="detail-tags">
+              <span class="tag">休闲</span>
+              <span class="tag">多人对战</span>
+              <span class="tag">联机</span>
+              <span class="tag">聚会</span>
+              <span class="tag developing">正在开发</span>
+            </div>
+            <div class="detail-actions">
+              <button class="btn-launch disabled" disabled>暂不开放</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tic Tac Toe Detail (hidden by default) -->
+        <div class="detail-card" id="detail-tictactoe" style="display:none">
+          <div class="detail-preview">
+            <div class="preview-placeholder">
+              <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                <line x1="0" y1="26.67" x2="80" y2="26.67" stroke="#3a3a5a" stroke-width="1" opacity=".5"/>
+                <line x1="0" y1="53.33" x2="80" y2="53.33" stroke="#3a3a5a" stroke-width="1" opacity=".5"/>
+                <line x1="26.67" y1="0" x2="26.67" y2="80" stroke="#3a3a5a" stroke-width="1" opacity=".5"/>
+                <line x1="53.33" y1="0" x2="53.33" y2="80" stroke="#3a3a5a" stroke-width="1" opacity=".5"/>
+                <text x="13.33" y="33" text-anchor="middle" fill="#e94560" font-size="24" font-weight="bold">X</text>
+                <text x="40" y="33" text-anchor="middle" fill="#f0c040" font-size="24" font-weight="bold">O</text>
+                <text x="66.67" y="33" text-anchor="middle" fill="#e94560" font-size="24" font-weight="bold">X</text>
+              </svg>
+              <p>井字棋</p>
+            </div>
+          </div>
+          <div class="detail-info">
+            <h2 class="detail-title">井字棋</h2>
+            <p class="detail-desc">经典的X和O对战游戏，简单易上手，适合休闲娱乐。支持本地对战和在线联机，率先连成一线者获胜。</p>
+            <div class="detail-tags">
+              <span class="tag">休闲</span>
+              <span class="tag">双人对战</span>
+              <span class="tag">联机</span>
+              <span class="tag">入门</span>
+            </div>
+            <div class="detail-actions">
+              <a href="tictactoe/" class="btn-launch game-link">启动游戏</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Match Three Detail (hidden by default) -->
+        <div class="detail-card" id="detail-match-three" style="display:none">
+          <div class="detail-preview">
+            <div class="preview-placeholder">
+              <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                <circle cx="26.67" cy="26.67" r="10" fill="#e94560"/>
+                <circle cx="53.33" cy="26.67" r="10" fill="#0f3460"/>
+                <circle cx="26.67" cy="53.33" r="10" fill="#16213e"/>
+                <circle cx="53.33" cy="53.33" r="10" fill="#f0c040"/>
+                <circle cx="40" cy="40" r="10" fill="#c73652"/>
+              </svg>
+              <p>消消乐</p>
+            </div>
+          </div>
+          <div class="detail-info">
+            <h2 class="detail-title">消消乐</h2>
+            <p class="detail-desc">经典的三消休闲游戏，通过交换相邻方块形成三个或以上相同方块连线即可消除，获得分数并晋级关卡。支持单人模式和在线对战。</p>
+            <div class="detail-tags">
+              <span class="tag">休闲</span>
+              <span class="tag">益智</span>
+              <span class="tag">联机</span>
+              <span class="tag">关卡</span>
+            </div>
+            <div class="detail-actions">
+              <a href="match-three/" class="btn-launch game-link">启动游戏</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- RollBall Detail (hidden by default) -->
+        <div class="detail-card" id="detail-rollball" style="display:none">
+          <div class="detail-preview">
+            <div class="preview-placeholder">
+              <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                <circle cx="40" cy="40" r="24" fill="url(#rbGrad2)" stroke="#64b5f6" stroke-width="1.5"/>
+                <defs><linearGradient id="rbGrad2" x1="16" y1="16" x2="64" y2="64"><stop offset="0%" stop-color="#ff68fd"/><stop offset="100%" stop-color="#15befc"/></linearGradient></defs>
+                <ellipse cx="40" cy="32" rx="12" ry="5" fill="rgba(255,255,255,0.25)" transform="rotate(-20 40 32)"/>
+              </svg>
+              <p>弹跳球</p>
+            </div>
+          </div>
+          <div class="detail-info">
+            <h2 class="detail-title">弹跳球</h2>
+            <p class="detail-desc">3D无限跑酷，控制小球在多彩轨道上弹跳前进。踩同色方块得分，踩异色方块碎裂。黑洞终点、加速隧道、连击特效，五大星际关卡等你挑战。</p>
+            <div class="detail-tags">
+              <span class="tag">3D</span>
+              <span class="tag">跑酷</span>
+              <span class="tag">单人</span>
+              <span class="tag">关卡</span>
+            </div>
+            <div class="detail-actions">
+              <a href="rollball/" class="btn-launch game-link">启动游戏</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Baba Is You Detail (hidden by default) -->
+        <div class="detail-card" id="detail-baba-is-you" style="display:none">
+          <div class="detail-preview">
+            <div class="preview-placeholder">
+              <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                <rect x="10" y="30" width="20" height="20" rx="4" fill="#7c5cff" opacity="0.8"/>
+                <rect x="35" y="30" width="14" height="20" rx="3" fill="#4a3a8a"/>
+                <rect x="55" y="30" width="12" height="20" rx="3" fill="#c4a0ff"/>
+                <line x1="20" y1="30" x2="20" y2="20" stroke="#7c5cff" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+              <p>规则即力量</p>
+            </div>
+          </div>
+          <div class="detail-info">
+            <h2 class="detail-title">规则即力量</h2>
+            <p class="detail-desc">灵感来自 Baba Is You 的解谜游戏。场景中的文字方块组成了游戏规则——推开它们就能改变规则本身！让墙不挡路、让石变成你、让旗不是赢……打破一切规则才能通关。10个精心设计的关卡，从入门到烧脑。</p>
+            <div class="detail-tags">
+              <span class="tag">解谜</span>
+              <span class="tag">推箱</span>
+              <span class="tag">单人</span>
+              <span class="tag">关卡</span>
+            </div>
+            <div class="detail-actions">
+              <a href="baba-is-you/" class="btn-launch game-link">启动游戏</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="platform-footer">
+      <p>© 2026 GameHub · 用心做好每一款游戏</p>
+    </footer>
+  </div>
+
+  <!-- Page Transition Overlay -->
+  <div class="page-transition" id="pageTransition"></div>
+
+  <script>
+    var _transOverlay = document.getElementById('pageTransition');
+
+    // Smooth transition for all game links
+    document.querySelectorAll('.game-link').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        _transOverlay.classList.add('active');
+        setTimeout(function() {
+          window.location.href = link.getAttribute('href');
+        }, 400);
+      });
+    });
+
+    // Switch detail panel on sidebar click
+    document.querySelectorAll('.game-list-item[data-game]').forEach(function(item) {
+      item.addEventListener('click', function(e) {
+        e.preventDefault();
+        var game = this.getAttribute('data-game');
+        // Update active state
+        document.querySelectorAll('.game-list-item').forEach(function(el) { el.classList.remove('active'); });
+        this.classList.add('active');
+        // Switch detail
+        document.querySelectorAll('.detail-card').forEach(function(el) { el.style.display = 'none'; });
+        var detail = document.getElementById('detail-' + game);
+        if (detail) {
+          detail.style.display = '';
+          detail.style.animation = 'fadeIn .3s ease';
+        }
+      });
+    });
+
+    // Clear overlay on bfcache restore
+    window.addEventListener('pageshow', function(e) {
+      if (e.persisted || _transOverlay.classList.contains('active')) {
+        _transOverlay.classList.remove('active');
+      }
+    });
+  </script>
+
+</body>
+</html>

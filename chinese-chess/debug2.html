@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chess Debug</title>
+  <style>
+    body { background: #0d0d1a; display: flex; justify-content: center; padding: 40px; }
+    canvas { border: 2px solid #gold; }
+    #log { color: #0f0; font-family: monospace; font-size: 13px; white-space: pre-wrap; max-width: 600px; }
+    .err { color: #f44; }
+  </style>
+</head>
+<body>
+<div>
+  <canvas id="board" width="630" height="700"></canvas>
+  <div id="log"></div>
+</div>
+<script>
+const log = document.getElementById('log');
+const origWarn = console.warn;
+const origError = console.error;
+
+window.onerror = function(msg, url, line, col, err) {
+  log.innerHTML += '<span class=err>ERROR: ' + msg + ' (line ' + line + ')</span>\n';
+  return false;
+};
+console.warn = function(...args) { log.innerHTML += 'WARN: ' + args.join(' ') + '\n'; origWarn.apply(console, args); };
+console.error = function(...args) { log.innerHTML += '<span class=err>ERR: ' + args.join(' ') + '</span>\n'; origError.apply(console, args); };
+
+try {
+  // Load chess.js
+  log.innerHTML += 'Loading chess.js...\n';
+</script>
+<script src="chess.js"></script>
+<script>
+  log.innerHTML += 'chess.js loaded OK\n';
+
+  // 模拟 DOMContentLoaded
+  log.innerHTML += 'Calling App.init()...\n';
+  App.init();
+
+  log.innerHTML += 'Calling App._setupOnlineUI()...\n';
+  App._setupOnlineUI();
+
+  log.innerHTML += 'Init complete.\n';
+  log.innerHTML += 'Canvas: ' + document.getElementById('board').width + 'x' + document.getElementById('board').height + '\n';
+  log.innerHTML += 'Canvas style: ' + document.getElementById('board').style.width + ' x ' + document.getElementById('board').style.height + '\n';
+
+  // 手动模拟进入本地对战
+  document.getElementById('btnLocal').click();
+  log.innerHTML += 'Clicked btnLocal\n';
+
+  // 检查 app 和 board 可见性
+  const app = document.getElementById('app');
+  const board = document.getElementById('board');
+  log.innerHTML += 'app display: ' + app.style.display + '\n';
+  log.innerHTML += 'board display: ' + board.style.display + '\n';
+  log.innerHTML += 'board offsetWidth: ' + board.offsetWidth + '\n';
+  log.innerHTML += 'board offsetHeight: ' + board.offsetHeight + '\n';
+
+} catch(e) {
+  log.innerHTML += '<span class=err>FATAL: ' + e.message + '\n' + e.stack + '</span>\n';
+}
+</script>
+</body>
+</html>

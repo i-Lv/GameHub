@@ -1,0 +1,160 @@
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f0f1a;--bg2:#1a1a2e;--bg3:#16213e;
+  --accent:#e94560;--gold:#f0c040;--text:#eaeaea;--muted:#8892a4;
+  --r:12px;--shadow:0 8px 32px rgba(0,0,0,.5);--tr:.2s ease;
+}
+html,body{height:100%;overflow-x:hidden;}
+body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* 返回按钮 */
+.back-btn{position:fixed;top:12px;left:12px;z-index:100;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:var(--text);padding:7px 14px;border-radius:8px;cursor:pointer;font-size:13px;transition:var(--tr);}
+.back-btn:hover{background:rgba(255,255,255,.16);}
+
+/* 界面切换 */
+.screen{display:none;min-height:100vh;}
+.screen.active{display:flex;align-items:center;justify-content:center;}
+
+/* ===== 菜单 ===== */
+.menu-box{background:var(--bg2);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:36px 40px;max-width:500px;width:90%;box-shadow:var(--shadow);}
+.menu-title{display:flex;align-items:center;gap:14px;margin-bottom:8px;}
+.menu-plane{font-size:40px;}
+.menu-title h1{font-size:32px;font-weight:700;background:linear-gradient(135deg,#f0c040,#e94560);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.menu-sub{color:var(--muted);font-size:14px;margin-bottom:28px;}
+
+/* 模式选择Tab */
+.mode-tabs{display:flex;gap:8px;margin-bottom:24px;}
+.mode-tab{flex:1;padding:12px;background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.1);border-radius:12px;color:var(--muted);font-size:15px;font-weight:600;cursor:pointer;transition:var(--tr);text-align:center;}
+.mode-tab:hover{background:rgba(255,255,255,.08);}
+.mode-tab.active{background:rgba(233,69,96,.15);border-color:var(--accent);color:var(--text);}
+
+/* 模式设置区 */
+.mode-setup{margin-bottom:8px;}
+.mode-desc{font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.5;background:rgba(255,255,255,.04);border-radius:8px;padding:10px 12px;}
+
+/* 人数选择按钮 */
+.setup-section{margin-bottom:20px;}
+.setup-label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;}
+.player-count-btns{display:flex;gap:10px;}
+.count-btn{flex:1;padding:10px;background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.1);border-radius:10px;color:var(--muted);font-size:14px;font-weight:600;cursor:pointer;transition:var(--tr);}
+.count-btn:hover{background:rgba(255,255,255,.08);}
+.count-btn.active{background:rgba(233,69,96,.15);border-color:var(--accent);color:var(--text);}
+
+/* 昵称输入 */
+.name-input{width:100%;padding:10px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:10px;color:var(--text);font-size:14px;outline:none;transition:var(--tr);}
+.name-input:focus{border-color:var(--accent);background:rgba(255,255,255,.1);}
+.name-input::placeholder{color:rgba(255,255,255,.25);}
+
+/* 联机操作按钮 */
+.online-actions{display:flex;gap:10px;}
+.online-actions .start-btn{flex:1;}
+
+/* 开始按钮 */
+.start-btn{width:100%;padding:14px;background:linear-gradient(135deg,#e94560,#c0392b);border:none;border-radius:12px;color:#fff;font-size:17px;font-weight:700;cursor:pointer;transition:var(--tr);}
+.start-btn:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(233,69,96,.4);}
+.start-btn.secondary{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:var(--text);}
+.start-btn.secondary:hover{background:rgba(255,255,255,.15);box-shadow:none;}
+.start-btn.small{padding:10px;font-size:14px;margin-top:10px;}
+
+/* 加入房间对话框 */
+.join-dialog{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px;margin-bottom:16px;}
+.join-actions{display:flex;gap:10px;margin-top:4px;}
+
+.menu-rules{font-size:12px;color:var(--muted);line-height:1.6;background:rgba(255,255,255,.04);border-radius:8px;padding:12px;}
+
+/* ===== 等待大厅 ===== */
+.lobby-box{text-align:center;}
+.lobby-title{font-size:22px;font-weight:700;margin-bottom:16px;}
+.lobby-room-id{font-size:16px;color:var(--muted);margin-bottom:20px;display:flex;align-items:center;justify-content:center;gap:8px;}
+.lobby-room-id strong{font-size:28px;color:var(--gold);letter-spacing:.15em;font-family:monospace;}
+.copy-btn{background:rgba(255,255,255,.1);border:none;border-radius:6px;padding:4px 8px;cursor:pointer;font-size:16px;transition:var(--tr);}
+.copy-btn:hover{background:rgba(255,255,255,.2);}
+.lobby-players{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:20px;min-height:60px;}
+.lobby-player-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:12px 16px;min-width:120px;text-align:center;}
+.lobby-player-card .lp-color{width:24px;height:24px;border-radius:50%;margin:0 auto 6px;}
+.lobby-player-card .lp-name{font-size:14px;font-weight:600;}
+.lobby-player-card .lp-tag{font-size:11px;color:var(--muted);margin-top:2px;}
+.lobby-player-card.ai-card{border-style:dashed;opacity:.7;}
+.lobby-hint{font-size:13px;color:var(--muted);margin-bottom:16px;}
+
+/* ===== 游戏界面 ===== */
+#gameScreen{display:none;align-items:stretch;justify-content:center;padding:12px;}
+#gameScreen.active{display:flex;}
+.game-layout{display:flex;gap:16px;width:100%;max-width:960px;align-items:flex-start;}
+
+.board-wrap{flex:0 0 auto;display:flex;align-items:center;justify-content:center;}
+#gameCanvas{display:block;border-radius:12px;cursor:pointer;touch-action:manipulation;}
+
+/* 控制面板 */
+.game-panel{flex:1;min-width:180px;max-width:240px;display:flex;flex-direction:column;gap:12px;padding-top:8px;}
+
+.turn-info{background:var(--bg2);border-radius:12px;padding:14px 16px;border:1px solid rgba(255,255,255,.08);}
+.turn-player{font-size:16px;font-weight:700;margin-bottom:4px;}
+.turn-hint{font-size:12px;color:var(--muted);}
+
+.dice-area{display:flex;flex-direction:column;align-items:center;gap:10px;background:var(--bg2);border-radius:12px;padding:16px;border:1px solid rgba(255,255,255,.08);}
+.dice{width:64px;height:64px;background:linear-gradient(145deg,#ffffff 0%,#f0f0f0 50%,#e0e0e0 100%);border-radius:12px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.9),inset 0 -2px 0 rgba(0,0,0,.08);transition:transform .15s;position:relative;overflow:hidden;}
+.dice::before{content:'';position:absolute;inset:3px;border-radius:9px;border:1px solid rgba(0,0,0,.06);}
+.dice.rolling{animation:diceRoll .5s ease;}
+@keyframes diceRoll{0%{transform:rotate(0deg) scale(1)}25%{transform:rotate(-15deg) scale(1.1)}50%{transform:rotate(15deg) scale(.9)}75%{transform:rotate(-8deg) scale(1.05)}100%{transform:rotate(0deg) scale(1)}}
+.dice-face{font-size:32px;line-height:1;user-select:none;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);width:80%;height:80%;gap:2px;padding:4px;}
+.dice-dot{width:100%;height:100%;border-radius:50%;background:transparent;transition:background .1s;}
+.dice-dot.show{background:radial-gradient(circle at 35% 35%,#555,#222);box-shadow:inset 0 1px 2px rgba(0,0,0,.6),0 1px 1px rgba(255,255,255,.3);}
+.roll-btn{width:100%;padding:10px;background:linear-gradient(135deg,#e94560,#c0392b);border:none;border-radius:8px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;transition:var(--tr);}
+.roll-btn:hover:not(:disabled){transform:translateY(-1px);}
+.roll-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+
+.movable-hint{background:rgba(240,192,64,.15);border:1px solid rgba(240,192,64,.4);color:var(--gold);border-radius:8px;padding:8px 12px;font-size:13px;text-align:center;}
+
+.pieces-status{background:var(--bg2);border-radius:12px;padding:12px 14px;border:1px solid rgba(255,255,255,.08);}
+.status-title{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+.status-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.status-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
+.status-text{font-size:12px;color:var(--muted);}
+.status-pieces{display:flex;gap:4px;margin-left:auto;}
+.status-piece-icon{width:14px;height:14px;border-radius:50%;border:1.5px solid rgba(255,255,255,.3);}
+.status-piece-icon.home{opacity:.3;}
+.status-piece-icon.done{background:var(--gold)!important;border-color:var(--gold);}
+
+.game-btns{display:flex;flex-direction:column;gap:8px;}
+.game-btn{padding:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:var(--text);border-radius:8px;font-size:13px;cursor:pointer;transition:var(--tr);}
+.game-btn:hover{background:rgba(255,255,255,.12);}
+
+/* 胜利弹窗 */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:200;}
+.win-box{background:var(--bg2);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:40px;text-align:center;max-width:340px;width:88%;box-shadow:var(--shadow);}
+.win-emoji{font-size:56px;margin-bottom:12px;}
+.win-title{font-size:28px;font-weight:800;margin-bottom:6px;background:linear-gradient(135deg,#f0c040,#e94560);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.win-sub{font-size:14px;color:var(--muted);margin-bottom:28px;}
+.win-btns{display:flex;gap:12px;}
+.win-btn{flex:1;padding:12px;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;transition:var(--tr);}
+.win-btn.primary{background:linear-gradient(135deg,#e94560,#c0392b);color:#fff;}
+.win-btn:not(.primary){background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:var(--text);}
+.win-btn:hover{transform:translateY(-2px);}
+
+/* Toast */
+.toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(20,20,40,.95);border:1px solid rgba(255,255,255,.2);color:var(--text);padding:12px 24px;border-radius:10px;font-size:15px;font-weight:600;z-index:300;pointer-events:none;text-align:center;max-width:80vw;}
+
+/* ===== 手机端适配 ===== */
+@media(max-width:680px){
+  .back-btn{top:8px;left:8px;padding:6px 10px;font-size:12px;}
+  .menu-box{padding:24px 20px;}
+  .menu-title h1{font-size:26px;}
+
+  #gameScreen.active{flex-direction:column;align-items:center;padding:8px 6px 80px;}
+  .game-layout{flex-direction:column;align-items:center;gap:10px;width:100%;}
+  .game-panel{max-width:100%;min-width:unset;width:100%;flex-direction:row;flex-wrap:wrap;gap:8px;padding-top:0;}
+  .turn-info{flex:1;min-width:140px;}
+  .dice-area{flex-direction:row;flex:0 0 auto;padding:10px 14px;}
+  .dice{width:50px;height:50px;}
+  .dice-face{width:80%;height:80%;padding:3px;gap:1px;}
+  .roll-btn{padding:8px 14px;font-size:13px;white-space:nowrap;}
+  .movable-hint{width:100%;}
+  .pieces-status{width:100%;}
+  .game-btns{flex-direction:row;width:100%;}
+}
+@media(max-width:400px){
+  .mode-tab{padding:10px 6px;font-size:13px;}
+  .count-btn{padding:8px;font-size:13px;}
+  .lobby-room-id strong{font-size:22px;}
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Canvas Debug</title></head>
+<body style="background:#0d0d1a;display:flex;justify-content:center;align-items:center;min-height:100vh">
+<canvas id="board" width="630" height="700"></canvas>
+<script>
+const canvas = document.getElementById('board');
+const ctx = canvas.getContext('2d');
+
+// 测试1: 基本渲染
+ctx.fillStyle = '#dcb96a';
+ctx.fillRect(0, 0, 630, 700);
+ctx.fillStyle = '#000';
+ctx.font = 'bold 30px sans-serif';
+ctx.fillText('Canvas OK', 200, 350);
+
+// 测试2: DPR 处理
+const dpr = window.devicePixelRatio || 1;
+console.log('DPR:', dpr);
+console.log('canvas.width:', canvas.width, 'canvas.height:', canvas.height);
+console.log('canvas.style.width:', canvas.style.width, 'canvas.style.height:', canvas.style.height);
+
+// 测试3: 模拟 init
+canvas.width = 630 * dpr;
+canvas.height = 700 * dpr;
+canvas.style.width = '630px';
+canvas.style.height = '700px';
+ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+ctx.fillStyle = '#dcb96a';
+ctx.fillRect(0, 0, 630, 700);
+ctx.fillStyle = '#5a3a1a';
+ctx.font = 'bold 30px sans-serif';
+ctx.fillText('DPR init OK (' + dpr + 'x)', 150, 350);
+
+// 测试4: PIECE_NAMES lookup
+const PIECE_NAMES = {
+  red: { KING:'帅', ADVISOR:'仕', ELEPHANT:'相', KNIGHT:'馬', ROOK:'車', CANNON:'炮', PAWN:'兵' },
+  black: { KING:'将', ADVISOR:'士', ELEPHANT:'象', KNIGHT:'馬', ROOK:'車', CANNON:'砲', PAWN:'卒' }
+};
+const piece = {type:'ROOK', color:'red'};
+const name = PIECE_NAMES[piece.color][piece.type];
+ctx.fillText('Piece name: ' + name, 180, 400);
+</script>
+</body>
+</html>

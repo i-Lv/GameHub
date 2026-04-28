@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>规则即力量 — Baba Is You 中文版</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 关卡选择界面 -->
+  <div id="menuOverlay">
+    <div id="menuContainer">
+      <div id="menuTitle">规则即力量</div>
+      <div id="menuSub">BABA IS YOU · 中文版</div>
+      <div id="menuDesc">推动文字，改变规则，打破一切</div>
+      <div id="levelCards"></div>
+      <button id="menuBackBtn">返回平台</button>
+    </div>
+  </div>
+
+  <!-- 游戏画布 -->
+  <canvas id="gameCanvas"></canvas>
+
+  <!-- 游戏 UI -->
+  <div id="gameUI" style="display:none">
+    <div id="gameTopBar">
+      <button id="inGameBackBtn" class="topbar-btn">← 返回</button>
+      <div id="levelInfo">
+        <span id="currentLevelName"></span>
+        <span id="currentLevelHint" class="hint-text"></span>
+      </div>
+      <div class="topbar-btn" style="visibility:hidden">占位</div>
+    </div>
+  </div>
+  <div id="winOverlay">
+    <div id="winBox">
+      <div id="winIcon">🌟</div>
+      <h1>过关！</h1>
+      <p id="winLevelName"></p>
+      <div id="winBtns">
+        <button id="winNextBtn">下一关</button>
+        <button id="winRetryBtn">重玩</button>
+        <button id="winMenuBtn">选关</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 失败弹窗 -->
+  <div id="loseOverlay">
+    <div id="loseBox">
+      <div id="loseIcon">💔</div>
+      <h1>失败</h1>
+      <p>没有"你"了...</p>
+      <div id="loseBtns">
+        <button id="loseRetryBtn">重试</button>
+        <button id="loseMenuBtn">选关</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 手机端虚拟方向键 -->
+  <div id="dpad">
+    <div id="dpadUp" class="dpad-btn">▲</div>
+    <div id="dpadDown" class="dpad-btn">▼</div>
+    <div id="dpadLeft" class="dpad-btn">◀</div>
+    <div id="dpadRight" class="dpad-btn">▶</div>
+  </div>
+  <div id="mobileActions">
+    <button id="mobileUndoBtn" class="mobile-action-btn">撤销</button>
+    <button id="mobileResetBtn" class="mobile-action-btn">重置</button>
+  </div>
+
+  <!-- 脚本 -->
+  <script src="engine.js"></script>
+  <script src="levels.js"></script>
+  <script src="renderer.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

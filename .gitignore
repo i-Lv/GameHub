@@ -1,0 +1,61 @@
+# ===========================
+#  WorkBuddy (开发工具)
+# ===========================
+.workbuddy/
+
+# ===========================
+#  Python
+# ===========================
+__pycache__/
+*.py[cod]
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+.eggs/
+*.manifest
+*.spec
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+
+# ===========================
+#  IDE & Editor
+# ===========================
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ===========================
+#  Logs & Local files
+# ===========================
+*.log
+logs/
+*.local
+.env
+.env.*
+
+# ===========================
+#  Temp folders
+# ===========================
+snap/
+tmp/
+temp/
+
+# ===========================
+#  Build artifacts (if any)
+# =========================__
+node_modules/

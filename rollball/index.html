@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RollBall — 无限轨道弹跳球</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 关卡选择界面 -->
+  <div id="levelSelectOverlay">
+    <div id="levelSelectContainer">
+      <div id="levelSelectTitle">选择关卡</div>
+      <div id="levelSelectSub">ROLLBALL</div>
+      <div id="levelCards"></div>
+      <button id="backToMenuBtn">返回平台</button>
+    </div>
+  </div>
+
+  <!-- 游戏内返回菜单按钮 -->
+  <button id="inGameMenuBtn">菜单</button>
+
+  <!-- 胜利弹窗 -->
+  <div id="victoryOverlay">
+    <div id="victoryBox">
+      <div id="victoryStars">
+        <span class="star">&#9733;</span>
+        <span class="star">&#9733;</span>
+        <span class="star">&#9733;</span>
+      </div>
+      <h1 id="victoryTitle">YOU WIN!</h1>
+      <p id="victoryDesc">你成功进入了黑洞！</p>
+      <p id="victoryStats"></p>
+      <div id="victoryBtns">
+        <button id="victoryNextBtn">下一关</button>
+        <button id="victoryBackBtn">返回选关</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 关卡名称闪现 -->
+  <div id="levelAnnounce">
+    <div class="level-num" id="levelNum">LEVEL 1</div>
+    <div class="level-title" id="levelTitle">永恒号</div>
+    <div class="level-sub" id="levelSub">跳 1 次，进入黑洞</div>
+  </div>
+
+  <!-- 距离显示 -->
+  <div id="distanceUI">
+    <div id="levelName">永恒号</div>
+    <div id="distCurrent">0<span class="unit">m</span></div>
+    <div id="distTarget">目标: ??? m</div>
+  </div>
+
+  <!-- 连击鼓励 -->
+  <div id="comboUI">
+    <div id="comboWord">PERFECT</div>
+    <div id="comboCount">x1</div>
+  </div>
+
+  <!-- 暂停菜单 -->
+  <div id="pauseOverlay">
+    <div id="pauseBox">
+      <h1>PAUSED</h1>
+      <p>游戏已暂停</p>
+      <div id="pauseBtns">
+        <button id="pauseResumeBtn">继续游戏</button>
+        <button id="pauseMenuBtn">返回选关</button>
+        <button id="pauseBackBtn">返回平台</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GameOver 弹窗 -->
+  <div id="gameOverOverlay">
+    <div id="gameOverBox">
+      <h1>GAME OVER</h1>
+      <p>颜色不同，球碎了...</p>
+      <div id="gameOverBtns">
+        <button id="continueBtn">继续</button>
+        <button id="backBtn">返回</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "./node_modules/three/build/three.module.js",
+      "three/addons/": "./node_modules/three/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module" src="rollball.js"></script>
+</body>
+</html>
